@@ -1,9 +1,11 @@
 'use client';
 import { useDogsContext } from '@/hooks/useDogs'
+import { useRouter } from 'next/navigation';
 import React from 'react'
 
 export default function DogsPage() {
     const { state, dispatch } = useDogsContext();
+    const router = useRouter();
 
     const addDog = () => {
         const newDogName = prompt("Vad heter hunden?");
@@ -27,7 +29,7 @@ export default function DogsPage() {
         <main>
             <ul>
                 {state.dogs.map((dog, i) => (
-                    <li key={i}>{dog.name}</li>
+                    <li key={i} onClick={() => router.push(`/dogs/${dog.chipNumber}`)}>{dog.name}</li>
                 ))}
             </ul>
             <button onClick={addDog}>Lägg till hund</button>
